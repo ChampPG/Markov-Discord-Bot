@@ -29,14 +29,14 @@ Made by: Paul Gleason
     * You may need to enable devoloper mode to see Guild ID and User ID
     * `Token:` aquire from developer portal
     * `Guild_ID:` Right click server icon and select 
-    ![Guild ID Image](img/Guild_ID.png) 
+        * ![Guild ID Image](img/Guild_ID.png) 
     * `Owner_ID:` Right click user and select 
-    ![Owner ID image](img/Owner_ID.png)
-    * 
+        * ![Owner ID image](img/Owner_ID.png)
+    * Config File Example:
     ```
-    TOKEN = 'jalksdfasjdkjfasdnotarealtoken'
-    GUILD_ID = ''
-    OWNER_ID = 
+    TOKEN = 'jalqwerjnzxljfasdnotarealtoken'
+    GUILD_ID = 'asjdlkfanotrealguildid'
+    OWNER_ID = 'notrealownderidmewqior'
     ```
 
 ## Setup
