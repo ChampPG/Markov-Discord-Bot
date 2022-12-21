@@ -9,20 +9,20 @@ Made by: Paul Gleason
 * numpy
 
 ## Commands
-* `/algorithm`
+* `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
     * `True` will use the creators algorithm.
     * `False` will use the markovify algorithm.
 * `/change-vars` - (Work in Progress)
-* `/listen`
+* `/listen` - Add or Remove channels from listening.
     * var = `add` will add the channels in channel1-10 to the listening list.
     * var = `remove` will remove the channels in channel1-10 to the listening list.
 * `/listening` - Will display what channels are being listened to.
 * `/mark` - Output sentence from training data.
-* `/set-channel` - Set channel so bot can only be used in that channel
-* `/talk`
+* `/set-channel` - Set channel so bot can only be used in that channel.
+* `/talk` - Give the ability for the bot to talk freely.
     * `True` bot will talk in the /set-channel every 10 secondes.
     * `False` bot can be used as normal.
-* `/train`
+* `/train` - Bot will read messages from listening channels and turn it into a data set for markov.
     * `True` will remove previous training data (training data is deleted once bot is turned off). 
     * `False` will appened new data onto the old data file.  
 
