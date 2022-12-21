@@ -49,57 +49,59 @@ Made by: Paul Gleason
 
 2. Configure bot channel:
     * User: `/set-channel`
-    * Bot:
-        * ![Set Channel](img/set-channel.png)
+    * Bot: \
+    ![Set Channel](img/set-channel.png)
 
 3. Configure channels for bot to listen to: \
     3.1. **To add channels**
     * User: `/listen add {Channels}`
-    * Bot: \ ![Channel Add](img/listen%20add.png)
+    * Bot: \
+    ![Channel Add](img/listen%20add.png)
 
     3.2. **To remove channels**
     * User: `/listen remove {Channels}`
-    * Bot: \ ![Channel Remove](img/listen%20remove.png)
+    * Bot: \ 
+    ![Channel Remove](img/listen%20remove.png)
 
 4. Choice algorithm: \
     4.1. **Creators Algorithm**
     * User: `/algorithm True`
-    * Bot:
-        * ![Creator Algorithm](img/algorithm%20true.png)
+    * Bot: \
+    ![Creator Algorithm](img/algorithm%20true.png)
 
     4.2. **Markovify Algorithm**
     * User: `/algorithm False`
-    * Bot:
-        * ![Markovify Algorithm](img/algorithm%20false.png)
+    * Bot: \
+    ![Markovify Algorithm](img/algorithm%20false.png)
 
-5. Train Bot (depending on channel size this may take some time):
+5. Train Bot (depending on channel size this may take some time): \
     5.1. **If running for the first time use or want to start over training set `True`**
 
     * User: `/train True`
-    * Bot:
-        * ![Training Start](img/Train%20Start.png)
-        * ![Training Output](img/training%20output.png)
+    * Bot: \ 
+    ![Training Start](img/Train%20Start.png) \
+    ![Training Output](img/training%20output.png)
 
     5.2. **If you already have trained the bot once you can use `False` to add (If going over channel from first training it will duplicated the data.)**
     * User: `/train False`
-    * Bot:
-        * ![Training Output False](img/training%20output%20false.png)
+    * Bot: \ 
+    ![Training Output False](img/training%20output%20false.png)
 
 6. Getting the bot to talk:
     * User: `/mark`
-    * Bot:
-        * ![Mark](img/mark.png)
+    * Bot: \
+    ![Mark](img/mark.png)
     
-7. OPTIONAL: if you could like the bot talk every 15 seconds:
+7. OPTIONAL: if you could like the bot talk every 15 seconds:\
     7.1. **The bot will start sending a message every 15 seconds**
     * User: `/talk True`
-    * Bot:
-        * ![True Talk](img/talk%20true.png)
+    * Bot: \
+    ![True Talk](img/talk%20true.png)
 
     7.2. **The bot may say 1 or 2 more messages before fully stopping**
     * User: `/talk False`
-    * Bot:
-        * ![False Talk](img/talk%20false.png)
+    * Bot: \
+    ![False Talk](img/talk%20false.png)
 
 ## Setup
 download repo
