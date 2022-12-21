@@ -53,23 +53,23 @@ Made by: Paul Gleason
         * ![Set Channel](img/set-channel.png)
 
 3. Configure channels for bot to listen to:
-    * To add channels
+    * **To add channels**
     * User: `/listen add {Channels}`
     * Bot:
         * ![Channel Add](img/listen%20add.png)
 
-    * To remove channels
+    * **To remove channels**
     * User: `/listen remove {Channels}`
     * Bot:
         * ![Channel Remove](img/listen%20remove.png)
 
 4. Choice algorithm:
-    * Creators Algorithm
+    * **Creators Algorithm**
     * User: `/algorithm True`
     * Bot:
         * ![Creator Algorithm](img/algorithm%20true.png)
 
-    * Markovify Algorithm
+    * **Markovify Algorithm**
     * User: `/algorithm False`
     * Bot:
         * ![Markovify Algorithm](img/algorithm%20false.png)
@@ -97,7 +97,7 @@ Made by: Paul Gleason
     * Bot:
         * ![True Talk](img/talk%20true.png)
 
-    * The bot may say 1 or 2 more messages before fully stopping
+    * **The bot may say 1 or 2 more messages before fully stopping**
     * User: `/talk False`
     * Bot:
         * ![False Talk](img/talk%20false.png)
