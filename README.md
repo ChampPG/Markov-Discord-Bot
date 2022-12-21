@@ -30,6 +30,7 @@ Made by: Paul Gleason
 1. Download Repo by cloning or ZIP.
 2. Enter the working directory.
 3. Create a `config.py` file following `step 1` under `Discord Side`.
+4. Run `bot.py`
 
 ## Usage
 1. Create a [Discord bot application](https://discordapp.com/developers/applications/)
