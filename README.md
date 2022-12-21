@@ -19,11 +19,11 @@ Made by: Paul Gleason
 * `/train` - `True` will remove previous training data (training data is deleted once bot is turned off). `False` will appened new data onto the old data file.  
 
 ## Usage
-1. Create a Discord bot application
+1. Create a [Discord bot application](https://discordapp.com/developers/applications/)
 2. Under the "Bot" section, enable the "Message Content Intent", and copy the token for later.
 3. Setup and configure the bot using one of the below methods:
 
-# Windows
+# Discord Size
 1. Setup config with correct data.
     * Make a file called `config.py` and add the following.
     * You may need to enable devoloper mode to see Guild ID and User ID
