@@ -60,7 +60,7 @@ Made by: Paul Gleason
 
     3.2. **To remove channels**
     * User: `/listen remove {Channels}`
-    * Bot: \ 
+    * Bot: \
     ![Channel Remove](img/listen%20remove.png)
 
 4. Choice algorithm: \
@@ -78,13 +78,13 @@ Made by: Paul Gleason
     5.1. **If running for the first time use or want to start over training set `True`**
 
     * User: `/train True`
-    * Bot: \ 
+    * Bot: \
     ![Training Start](img/Train%20Start.png) \
     ![Training Output](img/training%20output.png)
 
     5.2. **If you already have trained the bot once you can use `False` to add (If going over channel from first training it will duplicated the data.)**
     * User: `/train False`
-    * Bot: \ 
+    * Bot: \
     ![Training Output False](img/training%20output%20false.png)
 
 6. Getting the bot to talk:
