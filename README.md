@@ -52,18 +52,16 @@ Made by: Paul Gleason
     * Bot:
         * ![Set Channel](img/set-channel.png)
 
-3. Configure channels for bot to listen to:
+3. Configure channels for bot to listen to: \
     3.1. **To add channels**
     * User: `/listen add {Channels}`
-    * Bot:
-        * ![Channel Add](img/listen%20add.png)
+    * Bot: \ ![Channel Add](img/listen%20add.png)
 
     3.2. **To remove channels**
     * User: `/listen remove {Channels}`
-    * Bot:
-        * ![Channel Remove](img/listen%20remove.png)
+    * Bot: \ ![Channel Remove](img/listen%20remove.png)
 
-4. Choice algorithm:
+4. Choice algorithm: \
     4.1. **Creators Algorithm**
     * User: `/algorithm True`
     * Bot:
