@@ -42,57 +42,57 @@ Made by: Paul Gleason
 2. Configure bot channel:
     * User: `/set-channel`
     * Bot:
-    ![Set Channel](img/set-channel.png)
+        * ![Set Channel](img/set-channel.png)
 
 3. Configure channels for bot to listen to:
     * To add channels
     * User: `/listen add {Channels}`
     * Bot:
-    ![Channel Add](img/listen%20add.png)
+        * ![Channel Add](img/listen%20add.png)
 
     * To remove channels
     * User: `/listen remove {Channels}`
     * Bot:
-    ![Channel Remove](img/listen%20remove.png)
+        * ![Channel Remove](img/listen%20remove.png)
 
 4. Choice algorithm:
     * Creators Algorithm
     * User: `/algorithm True`
     * Bot:
-    ![Creator Algorithm](img/algorithm%20true.png)
+        * ![Creator Algorithm](img/algorithm%20true.png)
 
     * Markovify Algorithm
     * User: `/algorithm False`
     * Bot:
-    ![Markovify Algorithm](img/algorithm%20false.png)
+        * ![Markovify Algorithm](img/algorithm%20false.png)
 
 5. Train Bot (depending on channel size this may take some time):
     * If running for the first time use or want to start over training set `True`
 
     * User: `/train True`
     * Bot:
-    ![Training Start](img/Train%20Start.png)
-    ![Training Output](img/training%20output.png)
+        * ![Training Start](img/Train%20Start.png)
+        * ![Training Output](img/training%20output.png)
 
     * If you already have trained the bot once you can use `False` to add (If going over channel from first training it will duplicated the data.)
     * User: `/train False`
     * Bot:
-    ![Training Output False](img/training%20output%20false.png)
+        * ![Training Output False](img/training%20output%20false.png)
 
 6. Getting the bot to talk:
     * User: `/mark`
     * Bot:
-     ![Mark](img/mark.png)
+        * ![Mark](img/mark.png)
     
 7. OPTIONAL: if you could like the bot talk every 15 seconds:
     * User: `/talk True`
     * Bot:
-    ![True Talk](img/talk%20true.png)
+        * ![True Talk](img/talk%20true.png)
 
     * The bot may say 1 or 2 more messages before fully stopping
     * User: `/talk False`
     * Bot:
-    ![False Talk](img/talk%20false.png)
+        * ![False Talk](img/talk%20false.png)
 
 ## Setup
 download repo
