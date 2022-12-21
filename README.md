@@ -9,7 +9,7 @@ Made by: Paul Gleason
 * numpy
 
 ## Commands
-* `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
+* `/algorithm` - Switch between creators algorithm or markovify (Bot doesn't need to be retrained if algorithm is changed).
     * `True`: will use the creators algorithm.
     * `False`: will use the markovify algorithm.
 * `/change-vars` - (Work in Progress)

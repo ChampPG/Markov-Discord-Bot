@@ -215,9 +215,10 @@ async def varsconfig(interaction: discord.Interaction, state: str):
             # Save values
         elif state.lower() == 'import':
                 try:
-                    with open("config.csv", "r") as reader:
+                    with open("config.csv", "r", encoding='utf-8') as reader:
                         dict_reader = csv.DictReader(reader)
-                        print(dict_reader)
+                        list_of_dict = list(dict_reader)
+                        vari_dict = list_of_dict
                 except EnvironmentError as e:
                     print(e.strerror)
                 print(vari_dict)
@@ -283,15 +284,16 @@ async def train(interaction: discord.Interaction, clean: bool):
                     if line != '' or line != '\n':
                         all_messages.write(line + '\n')
         
-        if variabl.method == True:
-            markov.generate('parsed_data.txt')
-        elif variabl.method == False:
-            corpus = open('parsed_data.txt', encoding='utf-8').read()
-            # https://github.com/jsvine/markovify
-            text_model = markovify.Text(corpus)
-            variabl.model_json = text_model.to_json()
-            print(variabl.model_json)
-        
+        # Creators training Method
+        markov.generate('parsed_data.txt')
+
+        # Markovify training method
+        corpus = open('parsed_data.txt', encoding='utf-8').read()
+        # https://github.com/jsvine/markovify
+        text_model = markovify.Text(corpus)
+        variabl.model_json = text_model.to_json()
+        print(variabl.model_json)
+    
         print('Markov Chain has been generated')
         print(f"\nchannel history is in the terminal. The amount of messages used for training is: {len(message_contents)}\n")
         await interaction.followup.send(f"channel history is in the terminal nerd. The amount of messages used for training is: {len(message_contents)}")
