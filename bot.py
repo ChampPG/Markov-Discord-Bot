@@ -16,7 +16,7 @@ import markovify
 bot = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
 # try:
-#     os.remove('Main Bot\parsed_data.txt')
+#     os.remove('parsed_data.txt')
 #     print('Old training data deleted')
 # except EnvironmentError as e:
 #     print(e.strerror)
@@ -73,7 +73,7 @@ async def setchannel(interaction: discord.Interaction):
 @bot.tree.command(name="listen", description='Add or Remove channels from the listening pool')
 @app_commands.describe(var = 'add or remove', channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
 async def listen(interaction: discord.Interaction, var: str, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
-    if interaction.user.id == OWNER_ID:
+    if str(interaction.user.id) == OWNER_ID:
         if var.lower() == 'add':
             channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
             # loop through channels
@@ -205,7 +205,7 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
             if param == 'Save':
                 vari_dict = {'config_save': variabl.config_save, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}
                 try:
-                    with open("Main Bot\config.csv", "w") as writer:
+                    with open("config.csv", "w") as writer:
                         fieldnames = ['config_save', 'channels_total', 'listening_channels']        
                         dict_writer = csv.DictWriter(writer, fieldnames=fieldnames)
                         dict_writer.writeheader()
@@ -217,7 +217,7 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
             # Save values
             elif param == 'Import':
                 try:
-                    with open("Main Bot\config.csv", "r") as reader:
+                    with open("config.csv", "r") as reader:
                         dict_reader = csv.DictReader(reader)
                         print(dict_reader)
                 except EnvironmentError as e:
@@ -226,7 +226,7 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
                 print("Variables was imported")
                 await interaction.response.send_message(f"Variables was imported")
         elif state == False:
-            os.remove("Main Bot\config.csv")
+            os.remove("config.csv")
             print("Variables config was deleted")
             await interaction.response.send_message(f"Variables config was deleted")
     else:
@@ -252,10 +252,10 @@ async def algorithm(interaction: discord.Interaction, algorithm: bool):
 @bot.tree.command(name="train", description='train bot with history of listening channels')
 @app_commands.describe(clean = "If True will delete previous training data.")
 async def train(interaction: discord.Interaction, clean: bool):
-    if variabl.working_channel == interaction.channel_id and len(variabl.channels_total) != 0:
+    if variabl.working_channel == interaction.channel_id and len(variabl.channels_total) != 0 and  str(interaction.user.id) == OWNER_ID:
         try:
             if clean == True:
-                os.remove('Main Bot\parsed_data.txt')
+                os.remove('parsed_data.txt')
         except EnvironmentError as e:
                     print(e.strerror)
         
@@ -275,20 +275,20 @@ async def train(interaction: discord.Interaction, clean: bool):
                 message_contents.append(message.content)
 
         if clean == False:
-            with open('Main Bot\parsed_data.txt', 'a', encoding="utf-8") as all_messages:
+            with open('parsed_data.txt', 'a', encoding="utf-8") as all_messages:
                 for line in message_contents:
                     if line != '' or line != '\n':
                         all_messages.write(line + '\n')
         else:
-            with open('Main Bot\parsed_data.txt', 'w', encoding="utf-8") as all_messages:
+            with open('parsed_data.txt', 'w', encoding="utf-8") as all_messages:
                 for line in message_contents:
                     if line != '' or line != '\n':
                         all_messages.write(line + '\n')
         
         if variabl.method == True:
-            markov.generate('Main Bot\parsed_data.txt')
+            markov.generate('parsed_data.txt')
         elif variabl.method == False:
-            corpus = open('Main Bot\parsed_data.txt', encoding='utf-8').read()
+            corpus = open('parsed_data.txt', encoding='utf-8').read()
             # https://github.com/jsvine/markovify
             text_model = markovify.Text(corpus)
             variabl.model_json = text_model.to_json()
@@ -321,8 +321,8 @@ async def mark(interaction: discord.Interaction):
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
 
-# Loop for bot to talk every 10 seconds
-@tasks.loop(seconds=10)
+# Loop for bot to talk every 15 seconds
+@tasks.loop(seconds=15)
 async def talking_func():
     print('talking')
     if variabl.method == True:
@@ -334,15 +334,15 @@ async def talking_func():
     await bot.get_channel(variabl.working_channel).send(sentence)
 
 # Set bot to talk every 10 seconds
-@bot.tree.command(name="talk", description="Will talk every 30 seconds")
-@app_commands.describe(talking = "If True bot will talk every 30 seconds")
+@bot.tree.command(name="talk", description="Will talk every 15 seconds")
+@app_commands.describe(talking = "If True bot will talk every 15 seconds")
 async def talk (interaction: discord.Interaction, talking: bool):
     if variabl.working_channel == interaction.channel_id:
         if talking == True:
             talking_func.start()
         elif talking == False:
             talking_func.stop()
-        await interaction.response.send_message(F'Bot will now talk every 10 seconds: {talking}')
+        await interaction.response.send_message(F'Bot will now talk every 15 seconds: {talking}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
