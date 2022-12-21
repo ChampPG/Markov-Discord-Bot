@@ -27,7 +27,6 @@ markov = marko
 # Class to store 'global' variables
 class variables():
     def __init__(self):
-        self.config_save = 0
         self.channels_total = {}
         self.working_channel = 0
         self.listening_channels = 'SET CHANNEL!'
@@ -195,18 +194,17 @@ async def listening(interaction: discord.Interaction):
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
 
 # Save/Import or Delete Variables
-@bot.tree.command(name="change-vars", description="If input is `True` will save variables or import them. If `False` will delete the saves vars.")
-@app_commands.describe(state = 'True (save/import) or False (delete)', param = "Save to save Vars or Import to Import Vars")
-async def varsconfig(interaction: discord.Interaction, state: bool, param: str = None):
+@bot.tree.command(name="set-vars", description="If input is `True` will save variables or import them. If `False` will delete the saves vars.")
+@app_commands.describe(state = 'save, import, or delete')
+async def varsconfig(interaction: discord.Interaction, state: str):
     vari_dict = {}
     if str(interaction.user.id) == OWNER_ID:
-        if state == True:
-            # Import values
-            if param == 'Save':
-                vari_dict = {'config_save': variabl.config_save, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}
+        if state.lower() == 'save':
+                vari_dict = [{'algorithm': variabl.method, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}]
+                # vari_list = [variabl.method, variabl.channels_total, variabl.listening_channels]
                 try:
-                    with open("config.csv", "w") as writer:
-                        fieldnames = ['config_save', 'channels_total', 'listening_channels']        
+                    with open("config.csv", "w", encoding='utf-8') as writer:
+                        fieldnames = ['algorithm', 'channels_total', 'listening_channels']        
                         dict_writer = csv.DictWriter(writer, fieldnames=fieldnames)
                         dict_writer.writeheader()
                         dict_writer.writerows(vari_dict)
@@ -215,7 +213,7 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
                 print("Variables config was saved")
                 await interaction.response.send_message(f"Variables config was saved")
             # Save values
-            elif param == 'Import':
+        elif state.lower() == 'import':
                 try:
                     with open("config.csv", "r") as reader:
                         dict_reader = csv.DictReader(reader)
@@ -225,7 +223,7 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
                 print(vari_dict)
                 print("Variables was imported")
                 await interaction.response.send_message(f"Variables was imported")
-        elif state == False:
+        elif state.lower() == 'delete':
             os.remove("config.csv")
             print("Variables config was deleted")
             await interaction.response.send_message(f"Variables config was deleted")
