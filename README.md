@@ -35,6 +35,7 @@ Made by: Paul Gleason
 ## Usage
 1. Create a [Discord bot application](https://discordapp.com/developers/applications/)
 2. Under the "Bot" section, enable the "Message Content Intent", and copy the token for later.
+3. Invite link:`https://discord.com/oauth2/authorize?client_id={APPLICATION_ID}&scope=bot+applications.commands&permissions=105472` Just put your bots application ID.
 3. Setup and configure the bot using one of the below methods:
 
 # Discord Side
