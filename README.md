@@ -42,8 +42,8 @@ Made by: Paul Gleason
 1. Setup config with correct data.
     * Copy the `config_Example.py` and called the file `config.py` and add the following.
     * You may need to enable devoloper mode to see Guild ID and User ID
-    * `Token:` aquire from developer portal
-    * `Owner_ID:` Right click user and select \
+    * `Token`: aquire from developer portal
+    * `Owner_ID`: Right click user and select \
     ![Owner ID image](img/Owner_ID.png)
     * Config File Example:
     ```

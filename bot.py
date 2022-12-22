@@ -181,8 +181,10 @@ async def algorithm_function(interaction: discord.Interaction, algorithm: str):
         variabl.method = algorithm
 
         if algorithm == 'creator':
+            print('Markov algorithm in use is the creators')
             await interaction.response.send_message('Markov algorithm in use is the creators')
         if algorithm == 'markovify':
+            print('Markov algorithm in use is markovify')
             await interaction.response.send_message('Markov algorithm in use is markovify')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
@@ -193,6 +195,10 @@ async def algorithm_function(interaction: discord.Interaction, algorithm: str):
 @app_commands.describe(clean = "If True will delete previous training data.")
 async def train(interaction: discord.Interaction, clean: bool):
     if variabl.working_channel == interaction.channel_id and len(variabl.channels_total) != 0 and  str(interaction.user.id) == OWNER_ID:
+        talk_count = 0
+        if variabl.talk == True:
+            talking_func.stop()
+            talk_count = 1
         try:
             if clean == True:
                 os.remove('parsed_data.txt')
@@ -241,6 +247,9 @@ async def train(interaction: discord.Interaction, clean: bool):
         elif clean == False:
             print(f"\nchannel history is in the terminal. The amount of messages added to training is: {len(message_contents)}\n")
         await interaction.followup.send(f"channel history is in the terminal nerd. The amount of messages used for training is: {len(message_contents)}")
+        if talk_count == 1:
+            talking_func.start()
+            talk_count = 0
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel} or they forgot /listen-add")
         interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}> or no channels are being listened to.', ephemeral=True)
@@ -301,8 +310,10 @@ async def talk (interaction: discord.Interaction, talking: bool):
     if variabl.working_channel == interaction.channel_id:
         if talking == True:
             talking_func.start()
+            variabl.talk = True
         elif talking == False:
             talking_func.stop()
+            variabl.talk = False
         await interaction.response.send_message(F'Bot will now talk every 15 seconds: {talking}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
