@@ -285,14 +285,15 @@ async def train(interaction: discord.Interaction, clean: bool):
                     if line != '' or line != '\n':
                         all_messages.write(line + '\n')
         
-        if variabl.method == True:
-            markov.generate('parsed_data.txt')
-        elif variabl.method == False:
-            corpus = open('parsed_data.txt', encoding='utf-8').read()
-            # https://github.com/jsvine/markovify
-            text_model = markovify.Text(corpus)
-            variabl.model_json = text_model.to_json()
-            print(variabl.model_json)
+        # Creators Generation
+        markov.generate('parsed_data.txt')
+
+        # Markovify Generation
+        corpus = open('parsed_data.txt', encoding='utf-8').read()
+        # https://github.com/jsvine/markovify
+        text_model = markovify.Text(corpus)
+        variabl.model_json = text_model.to_json()
+        print(variabl.model_json)
         
         print('Markov Chain has been generated')
         print(f"\nchannel history is in the terminal. The amount of messages used for training is: {len(message_contents)}\n")
@@ -300,6 +301,23 @@ async def train(interaction: discord.Interaction, clean: bool):
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel} or they forgot /listen-add")
         interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}> or no channels are being listened to.', ephemeral=True)
+
+# Build out training data from file without running train command
+@bot.tree.command(name="generate", description='If you have your own training data file')
+async def generate(interaction: discord.Interaction):
+    if variabl.working_channel == interaction.channel_id and str(interaction.user.id) == OWNER_ID:
+        # Creators Generation
+        markov.generate('parsed_data.txt')
+
+        # Markovify Generation
+        corpus = open('parsed_data.txt', encoding='utf-8').read()
+        # https://github.com/jsvine/markovify
+        text_model = markovify.Text(corpus)
+        variabl.model_json = text_model.to_json()
+        print(variabl.model_json)
+    else:
+        print(f"{interaction.user} is trying to use me in {interaction.channel}")
+        await interaction.response.send_message(f"You're not the owner of this bot", ephemeral=True)
 
 # Output sentence based on training data
 @bot.tree.command(name="mark", description='train bot with history of listening channels')
@@ -315,7 +333,7 @@ async def mark(interaction: discord.Interaction):
             reconstituted_model = markovify.Text.from_json(variabl.model_json)
             sentence = reconstituted_model.make_short_sentence(300, 80)
 
-        # print(f'Sentence is: {sentence}')
+        # print(f'Sentence is: {str(sentence)}')
         await interaction.response.send_message(f'{sentence}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
