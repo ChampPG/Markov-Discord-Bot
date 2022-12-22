@@ -71,12 +71,12 @@ Made by: Paul Gleason
     4.1. **Creators Algorithm**
     * User: `/algorithm True`
     * Bot: \
-    ![Creator Algorithm](img/algorithm%20true.png)
+    ![Creator Algorithm](img/algorithm%20creators.png)
 
     4.2. **Markovify Algorithm**
     * User: `/algorithm False`
     * Bot: \
-    ![Markovify Algorithm](img/algorithm%20false.png)
+    ![Markovify Algorithm](img/algorithm%20markovify.png)
 
 5. Train Bot (depending on channel size this may take some time): \
     5.1. **If running for the first time use or want to start over training set `True`**

@@ -31,7 +31,7 @@ class variables():
         self.channels_total = {}
         self.working_channel = 0
         self.listening_channels = 'SET CHANNEL!'
-        self.method = True
+        self.method = 'creator'
         self.model_json = ''
         self.talk = False
 
@@ -236,7 +236,10 @@ async def train(interaction: discord.Interaction, clean: bool):
         print(variabl.model_json)
         
         print('Markov Chain has been generated')
-        print(f"\nchannel history is in the terminal. The amount of messages used for training is: {len(message_contents)}\n")
+        if clean == True:
+            print(f"\nchannel history is in the terminal. The amount of messages used for training is: {len(message_contents)}\n")
+        elif clean == False:
+            print(f"\nchannel history is in the terminal. The amount of messages added to training is: {len(message_contents)}\n")
         await interaction.followup.send(f"channel history is in the terminal nerd. The amount of messages used for training is: {len(message_contents)}")
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel} or they forgot /listen-add")
@@ -267,9 +270,9 @@ async def mark(interaction: discord.Interaction):
         # DELETE LINE BELOW LATER
         # markov.generate('Masterhacker_bot\masterhacker_parsed_data.txt')
         
-        if variabl.method == True:
+        if variabl.method == 'creator':
             sentence = markov.markov_string()
-        elif variabl.method == False:
+        elif variabl.method == 'markovify':
             reconstituted_model = markovify.Text.from_json(variabl.model_json)
             sentence = reconstituted_model.make_short_sentence(300, 80)
 
@@ -283,9 +286,9 @@ async def mark(interaction: discord.Interaction):
 @tasks.loop(seconds=15)
 async def talking_func():
     print('talking')
-    if variabl.method == True:
+    if variabl.method == 'creator':
         sentence = markov.markov_string()
-    elif variabl.method == False:
+    elif variabl.method == 'markovify':
         reconstituted_model = markovify.Text.from_json(variabl.model_json)
         sentence = reconstituted_model.make_short_sentence(300, 100)
 
