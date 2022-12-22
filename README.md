@@ -43,14 +43,11 @@ Made by: Paul Gleason
     * Make a file called `config.py` and add the following.
     * You may need to enable devoloper mode to see Guild ID and User ID
     * `Token:` aquire from developer portal
-    * `Guild_ID:` Right click server icon and select \
-    ![Guild ID Image](img/Guild_ID.png) 
     * `Owner_ID:` Right click user and select \
     ![Owner ID image](img/Owner_ID.png)
     * Config File Example:
     ```
     TOKEN = 'jalqwerjnzxljfasdnotarealtoken'
-    GUILD_ID = 'asjdlkfanotrealguildid'
     OWNER_ID = 'notrealownderidmewqior'
     ```
 
@@ -114,6 +111,5 @@ Made by: Paul Gleason
 Make a file called `config.py` and add the following.
 ```
 TOKEN = 'jalqwerjnzxljfasdnotarealtoken'
-GUILD_ID = 'asjdlkfanotrealguildid'
 OWNER_ID = 'notrealownderidmewqior'
 ```
