@@ -4,14 +4,14 @@
 Made by: Paul Gleason
 
 ## Requirements
-* discordpy - `pip install discord` \
-* markovify - `pip install markovify` \
+* discordpy - `pip install discord` 
+* markovify - `pip install markovify` 
 * numpy - `pip install numpy`
 
 ## Commands
 * `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
-    * `True`: will use the creators algorithm.
-    * `False`: will use the markovify algorithm.
+    * `Creators`: will use the creators algorithm.
+    * `Markovify`: will use the markovify algorithm.
 * `/change-vars` - (Work in Progress)
 * `/listen` - Add or Remove channels from listening.
     * `add`: will add the channels in channel1-10 to the listening list.
