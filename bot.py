@@ -71,10 +71,11 @@ async def setchannel(interaction: discord.Interaction):
 
 # Add or Remove channels from the listening pool
 @bot.tree.command(name="listen", description='Add or Remove channels from the listening pool')
-@app_commands.describe(var = 'add or remove', channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
-async def listen(interaction: discord.Interaction, var: str, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
+@app_commands.describe(state = 'add or remove', channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
+@app_commands.choices(state = [app_commands.Choice(name='add',value='add'), app_commands.Choice(name='remove',value='remove')])
+async def listen(interaction: discord.Interaction, state: str, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
     if str(interaction.user.id) == OWNER_ID:
-        if var.lower() == 'add':
+        if state == 'add':
             channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
             # loop through channels
             for channel in channels:
@@ -93,7 +94,7 @@ async def listen(interaction: discord.Interaction, var: str, channel1: discord.T
 
             print(f"{bot.user} is now listening to \n{variabl.listening_channels}")
             await interaction.response.send_message(f"{bot.user} is now listening to \n{variabl.listening_channels}")
-        elif var.lower() == 'remove':
+        elif state == 'remove':
             removed_channels = ''
             remove_channels = []
             channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
@@ -121,68 +122,6 @@ async def listen(interaction: discord.Interaction, var: str, channel1: discord.T
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel} and they aren't the owner.")
         await interaction.response.send_message(f"You're not the owner", ephemeral=True)
-        
-# add channels for the bot to listen to
-# @bot.tree.command(name="listen-add", description="Add channels that training will listen to.")
-# @app_commands.describe(channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
-# async def add(interaction: discord.Interaction, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
-#     if variabl.working_channel == interaction.channel_id:
-#         channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
-#         # loop through channels
-#         for channel in channels:
-#             # if channel has a channel continue
-#             if channel != None:
-#                 # add the to the channels_total dict with the key being channel name and the value being channel id
-#                 variabl.channels_total[channel.name] = channel.id
-
-#         print(variabl.channels_total)
-
-#         # Output to the terminal listening channels
-#         # for channel in variabl.channels_total:
-#         #     print(f"{channel} is {variabl.channels_total[channel]}")
-
-#         # clear listening_channels
-#         variabl.listening_channels = ''
-#         # Loop throught the channels_total values and add to the listening_channels
-#         for id in variabl.channels_total.values():
-#             variabl.listening_channels += f'• <#{str(id)}> \n'
-
-#         print(f"{bot.user} is now listening to \n{variabl.listening_channels}")
-#         await interaction.response.send_message(f"{bot.user} is now listening to \n{variabl.listening_channels}")
-#     else:
-#         print(f"{interaction.user} is trying to use me in {interaction.channel}")
-#         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
-
-# # remove channels that the bot is listening to
-# @bot.tree.command(name="listen-remove", description="Add channels that training will listen to.")
-# @app_commands.describe(channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
-# async def remove(interaction: discord.Interaction, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
-#     if variabl.working_channel == interaction.channel_id:
-#         removed_channels = ''
-#         remove_channels = []
-#         channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
-
-#         for channel in channels:
-#             if channel != None:
-#                 for current_channel in variabl.channels_total.values():
-#                     if channel.id is current_channel:
-#                         removed_channels += f'• <#{str(channel.id)}> \n'
-#                         remove_channels.append(channel.name)
-
-#         # Deleting channels
-#         for channel in remove_channels:
-#             del variabl.channels_total[channel]
-
-#         # Clean the listening_channels var
-#         variabl.listening_channels = ''
-#         # Remaking listening_channels based off of the removed channels
-#         for id in variabl.channels_total.values():
-#             variabl.listening_channels += f'• <#{str(id)}> \n'
-
-#         await interaction.response.send_message(f'Channels that were removed: \n{removed_channels}\nChannels that are being listened to: \n{variabl.listening_channels}')
-#     else:
-#         print(f"{interaction.user} is trying to use me in {interaction.channel}")
-#         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
 
 # Show channels that the bot is listening to
 @bot.tree.command(name="listening", description="Add channels that training will listen to.")
@@ -196,36 +135,36 @@ async def listening(interaction: discord.Interaction):
 
 # Save/Import or Delete Variables
 @bot.tree.command(name="change-vars", description="If input is `True` will save variables or import them. If `False` will delete the saves vars.")
-@app_commands.describe(state = 'True (save/import) or False (delete)', param = "Save to save Vars or Import to Import Vars")
-async def varsconfig(interaction: discord.Interaction, state: bool, param: str = None):
+@app_commands.describe(state = 'Save, Import, or Delete.')
+@app_commands.choices(state = [app_commands.Choice(name='Save',value='save'), app_commands.Choice(name='Import',value='import'), app_commands.Choice(name='Delete',value='delete')])
+async def varsconfig(interaction: discord.Interaction, state: str):
     vari_dict = {}
     if str(interaction.user.id) == OWNER_ID:
-        if state == True:
-            # Import values
-            if param == 'Save':
-                vari_dict = {'config_save': variabl.config_save, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}
-                try:
-                    with open("config.csv", "w") as writer:
-                        fieldnames = ['config_save', 'channels_total', 'listening_channels']        
-                        dict_writer = csv.DictWriter(writer, fieldnames=fieldnames)
-                        dict_writer.writeheader()
-                        dict_writer.writerows(vari_dict)
-                except EnvironmentError as e:
-                    print(e.strerror)
-                print("Variables config was saved")
-                await interaction.response.send_message(f"Variables config was saved")
-            # Save values
-            elif param == 'Import':
-                try:
-                    with open("config.csv", "r") as reader:
-                        dict_reader = csv.DictReader(reader)
-                        print(dict_reader)
-                except EnvironmentError as e:
-                    print(e.strerror)
-                print(vari_dict)
-                print("Variables was imported")
-                await interaction.response.send_message(f"Variables was imported")
-        elif state == False:
+        # Import values
+        if state == 'save':
+            vari_dict = {'config_save': variabl.config_save, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}
+            try:
+                with open("config.csv", "w") as writer:
+                    fieldnames = ['config_save', 'channels_total', 'listening_channels']        
+                    dict_writer = csv.DictWriter(writer, fieldnames=fieldnames)
+                    dict_writer.writeheader()
+                    dict_writer.writerows(vari_dict)
+            except EnvironmentError as e:
+                print(e.strerror)
+            print("Variables config was saved")
+            await interaction.response.send_message(f"Variables config was saved")
+        # Save values
+        elif state == 'import':
+            try:
+                with open("config.csv", "r") as reader:
+                    dict_reader = csv.DictReader(reader)
+                    print(dict_reader)
+            except EnvironmentError as e:
+                print(e.strerror)
+            print(vari_dict)
+            print("Variables was imported")
+            await interaction.response.send_message(f"Variables was imported")
+        elif state == 'delete':
             os.remove("config.csv")
             print("Variables config was deleted")
             await interaction.response.send_message(f"Variables config was deleted")
@@ -234,15 +173,16 @@ async def varsconfig(interaction: discord.Interaction, state: bool, param: str =
         await interaction.response.send_message(f"You aren't the owner of this bot...", ephemeral= True)
 
 # Set markov algorithm to creators or markovify
-@bot.tree.command(name="algorithm", description="Will select my markov or markovify")
-@app_commands.describe(algorithm = "If True will use my markov algorithm if False will use markovify")
-async def algorithm(interaction: discord.Interaction, algorithm: bool):
+@bot.tree.command(name="algorithm-selection", description="Will select my markov or markovify.")
+@app_commands.describe(algorithm = "If creators will use my markov algorithm if markovify will use markovify.")
+@app_commands.choices(algorithm = [app_commands.Choice(name='Creator',value='creator'), app_commands.Choice(name='Markovify',value='markovify')])
+async def algorithm_function(interaction: discord.Interaction, algorithm: str):
     if variabl.working_channel == interaction.channel_id:
         variabl.method = algorithm
 
-        if algorithm == True:
+        if algorithm == 'creator':
             await interaction.response.send_message('Markov algorithm in use is the creators')
-        if algorithm == False:
+        if algorithm == 'markovify':
             await interaction.response.send_message('Markov algorithm in use is markovify')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")

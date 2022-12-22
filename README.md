@@ -3,10 +3,10 @@
 # Python Markov Bot
 Made by: Paul Gleason
 
-### Requirements
-* discord.py
-* markovify
-* numpy
+## Requirements
+* discordpy - `pip install discord` \
+* markovify - `pip install markovify` \
+* numpy - `pip install numpy`
 
 ## Commands
 * `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
@@ -29,7 +29,7 @@ Made by: Paul Gleason
 ## Setup
 1. Download Repo by cloning or ZIP.
 2. Enter the working directory.
-3. Create a `config.py` file following `step 1` under `Discord Side`.
+3. Copy the `config_Example.py` and call the copy `config.py` then follow `step 1` under `Discord Side`.
 4. Run `bot.py`
 
 ## Usage
