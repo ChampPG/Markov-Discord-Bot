@@ -306,9 +306,11 @@ async def mark(interaction: discord.Interaction):
             reconstituted_model = markovify.Text.from_json(variabl.model_json)
             sentence = reconstituted_model.make_short_sentence(300, 80)
 
-        if sentence != '' or sentence != None:
+        try:
             print(f'{colored("Mark output senentce:", "green")}\n - {sentence}')
             await interaction.response.send_message(f'{sentence}')
+        except:
+            mark(interaction)
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
@@ -322,9 +324,12 @@ async def talking_func():
         reconstituted_model = markovify.Text.from_json(variabl.model_json)
         sentence = reconstituted_model.make_short_sentence(300, 100)
 
-    if sentence != '' or sentence != None:
+    try:
         print(f'{colored("Talking output senentce:", "green")}\n - {sentence}')
         await bot.get_channel(variabl.working_channel).send(sentence)
+    except:
+        talking_func()
+        
 
 # Set bot to talk every 10 seconds
 @bot.tree.command(name="talk", description="Will talk every 15 seconds")
