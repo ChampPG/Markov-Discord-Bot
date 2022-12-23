@@ -8,6 +8,10 @@ Made by: Paul Gleason
 * markovify - `pip install markovify` 
 * numpy - `pip install numpy`
 * termcolor - `pip install termcolor`
+### Optional
+**Linux**
+* python3 -m venv venv
+* source ./venv/bin/activate
 
 ## Commands
 * `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
