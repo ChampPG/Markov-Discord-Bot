@@ -12,6 +12,7 @@ import os
 import csv
 import markov as marko
 import markovify
+from termcolor import colored
 
 bot = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
@@ -71,12 +72,28 @@ async def setchannel(interaction: discord.Interaction):
 
 # Add or Remove channels from the listening pool
 @bot.tree.command(name="listen", description='Add or Remove channels from the listening pool')
-@app_commands.describe(state = 'add or remove', channel1 = 'channel 1', channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4', channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8')
+@app_commands.describe(state = 'add or remove', channel1 = 'channel 1', 
+                    channel2 = 'channel 2', channel3 = 'channel 3', channel4 = 'channel 4',
+                    channel5 = 'channel 5', channel6 = 'channel 7', channel8 = 'channel 8',
+                    channel9 = 'channel 9', channel10 = 'channel10', channel11 = 'channel11', 
+                    channel12 = 'channel12', channel13 = 'channel13', channel14 = 'channel14', 
+                    channel15 = 'channel15', channel16 = 'channel16', channel17 = 'channel17', 
+                    channel18 = 'channel18', channel19 = 'channel19', channel20 = 'channel20', 
+                    channel21 = 'channel21', channel22 = 'channel22', channel23 = 'channel23', 
+                    channel24 = 'channel24')
 @app_commands.choices(state = [app_commands.Choice(name='add',value='add'), app_commands.Choice(name='remove',value='remove')])
-async def listen(interaction: discord.Interaction, state: str, channel1: discord.TextChannel, channel2: discord.TextChannel = None, channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None):
+async def listen(interaction: discord.Interaction, state: str, channel1: discord.TextChannel, channel2: discord.TextChannel = None, 
+                channel3: discord.TextChannel = None, channel4: discord.TextChannel = None, channel5: discord.TextChannel = None, 
+                channel6: discord.TextChannel = None, channel7: discord.TextChannel = None, channel8: discord.TextChannel = None,
+                channel9: discord.TextChannel = None, channel10: discord.TextChannel = None, channel11: discord.TextChannel = None, 
+                channel12: discord.TextChannel = None, channel13: discord.TextChannel = None, channel14: discord.TextChannel = None, 
+                channel15: discord.TextChannel = None, channel16: discord.TextChannel = None, channel17: discord.TextChannel = None, 
+                channel18: discord.TextChannel = None, channel19: discord.TextChannel = None,channel20: discord.TextChannel = None, 
+                channel21: discord.TextChannel = None, channel22: discord.TextChannel = None, channel23: discord.TextChannel = None, channel24: discord.TextChannel = None):
     if str(interaction.user.id) == OWNER_ID:
         if state == 'add':
-            channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8]
+            channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8, channel9, channel10, channel11, channel12, 
+            channel13, channel14, channel15, channel16, channel17, channel18, channel19, channel20, channel21, channel22, channel23, channel24]
             # loop through channels
             for channel in channels:
                 # if channel has a channel continue
@@ -241,7 +258,7 @@ async def train(interaction: discord.Interaction, clean: bool):
         variabl.model_json = text_model.to_json()
         print(variabl.model_json)
         
-        print('Markov Chain has been generated')
+        print(f'{variabl.model_json}\n Markovify Json above ^ \n')
         if clean == True:
             print(f"\nchannel history is in the terminal. The amount of messages used for training is: {len(message_contents)}\n")
         elif clean == False:
@@ -258,6 +275,9 @@ async def train(interaction: discord.Interaction, clean: bool):
 @bot.tree.command(name="generate", description='If you have your own training data file')
 async def generate(interaction: discord.Interaction):
     if variabl.working_channel == interaction.channel_id and str(interaction.user.id) == OWNER_ID:
+
+        await interaction.response.defer(thinking=True)
+
         # Creators Generation
         markov.generate('parsed_data.txt')
 
@@ -266,7 +286,8 @@ async def generate(interaction: discord.Interaction):
         # https://github.com/jsvine/markovify
         text_model = markovify.Text(corpus)
         variabl.model_json = text_model.to_json()
-        print(variabl.model_json)
+        print(f'{variabl.model_json}\n Markovify Json above ^ \n')
+        await interaction.followup.send(f"Input training data from file has been used.")
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f"You're not the owner of this bot", ephemeral=True)
@@ -285,8 +306,9 @@ async def mark(interaction: discord.Interaction):
             reconstituted_model = markovify.Text.from_json(variabl.model_json)
             sentence = reconstituted_model.make_short_sentence(300, 80)
 
-        # print(f'Sentence is: {str(sentence)}')
-        await interaction.response.send_message(f'{sentence}')
+        if sentence != '' or sentence != None:
+            print(f'{colored("Mark output senentce:", "green")}\n - {sentence}')
+            await interaction.response.send_message(f'{sentence}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
@@ -294,27 +316,28 @@ async def mark(interaction: discord.Interaction):
 # Loop for bot to talk every 15 seconds
 @tasks.loop(seconds=15)
 async def talking_func():
-    print('talking')
     if variabl.method == 'creator':
         sentence = markov.markov_string()
     elif variabl.method == 'markovify':
         reconstituted_model = markovify.Text.from_json(variabl.model_json)
         sentence = reconstituted_model.make_short_sentence(300, 100)
 
-    await bot.get_channel(variabl.working_channel).send(sentence)
+    if sentence != '' or sentence != None:
+        print(f'{colored("Talking output senentce:", "green")}\n - {sentence}')
+        await bot.get_channel(variabl.working_channel).send(sentence)
 
 # Set bot to talk every 10 seconds
 @bot.tree.command(name="talk", description="Will talk every 15 seconds")
 @app_commands.describe(talking = "If True bot will talk every 15 seconds")
 async def talk (interaction: discord.Interaction, talking: bool):
     if variabl.working_channel == interaction.channel_id:
+        await interaction.response.send_message(F'Bot will now talk every 15 seconds: {talking}')
         if talking == True:
             talking_func.start()
             variabl.talk = True
         elif talking == False:
             talking_func.stop()
             variabl.talk = False
-        await interaction.response.send_message(F'Bot will now talk every 15 seconds: {talking}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)

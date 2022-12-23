@@ -7,6 +7,7 @@ Made by: Paul Gleason
 * discordpy - `pip install discord` 
 * markovify - `pip install markovify` 
 * numpy - `pip install numpy`
+* termcolor - `pip install termcolor`
 
 ## Commands
 * `/algorithm` - Switch between creators algorithm or markovify (If algorithm is change you must retrain the bot).
