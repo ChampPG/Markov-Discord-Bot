@@ -1,0 +1,4 @@
+discord
+markovify
+numpy
+termcolor

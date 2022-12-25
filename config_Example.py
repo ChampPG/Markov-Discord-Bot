@@ -1,2 +1,2 @@
 TOKEN = 'anzxcmnotarealtokenm2334da'
-OWNER_ID = 'jnotarealowneridahfiueownc'
+OWNER_ID = ['notrealownderidmewqior', 'anothernotrealowner_idajli']

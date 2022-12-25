@@ -16,6 +16,9 @@ from termcolor import colored
 
 bot = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
+#TODO make OWNER_ID can be a list of permitted user ID's  (Done?)
+#TODO allow for attachments in markovify algorithm (Works for mine just need to tweak markovify)
+
 # try:
 #     os.remove('parsed_data.txt')
 #     print('Old training data deleted')
@@ -62,7 +65,7 @@ async def on_ready():
 @bot.tree.command(name="set-channel", description='set channel so bot to respond to commands')
 async def setchannel(interaction: discord.Interaction):
     # Check if user is the owner
-    if str(interaction.user.id) == OWNER_ID:
+    if str(interaction.user.id) in OWNER_ID:
         variabl.working_channel = interaction.channel_id
         print(f"channel is set to channel: {interaction.channel} ID: {variabl.working_channel}")
         await interaction.response.send_message(f"channel is set to channel: `{interaction.channel}`")
@@ -90,7 +93,7 @@ async def listen(interaction: discord.Interaction, state: str, channel1: discord
                 channel15: discord.TextChannel = None, channel16: discord.TextChannel = None, channel17: discord.TextChannel = None, 
                 channel18: discord.TextChannel = None, channel19: discord.TextChannel = None,channel20: discord.TextChannel = None, 
                 channel21: discord.TextChannel = None, channel22: discord.TextChannel = None, channel23: discord.TextChannel = None, channel24: discord.TextChannel = None):
-    if str(interaction.user.id) == OWNER_ID:
+    if str(interaction.user.id) in OWNER_ID:
         if state == 'add':
             channels = [channel1, channel2, channel3, channel4, channel5, channel6, channel7, channel8, channel9, channel10, channel11, channel12, 
             channel13, channel14, channel15, channel16, channel17, channel18, channel19, channel20, channel21, channel22, channel23, channel24]
@@ -156,7 +159,7 @@ async def listening(interaction: discord.Interaction):
 @app_commands.choices(state = [app_commands.Choice(name='Save',value='save'), app_commands.Choice(name='Import',value='import'), app_commands.Choice(name='Delete',value='delete')])
 async def varsconfig(interaction: discord.Interaction, state: str):
     vari_dict = {}
-    if str(interaction.user.id) == OWNER_ID:
+    if str(interaction.user.id) in OWNER_ID:
         # Import values
         if state == 'save':
             vari_dict = {'config_save': variabl.config_save, 'channels_total': variabl.channels_total, 'listening_channels': variabl.listening_channels}
@@ -197,12 +200,14 @@ async def algorithm_function(interaction: discord.Interaction, algorithm: str):
     if variabl.working_channel == interaction.channel_id:
         variabl.method = algorithm
 
+        await interaction.response.defer(thinking=True)
+
         if algorithm == 'creator':
             print('Markov algorithm in use is the creators')
-            await interaction.response.send_message('Markov algorithm in use is the creators')
+            await interaction.followup.send('Markov algorithm in use is the creators')
         if algorithm == 'markovify':
             print('Markov algorithm in use is markovify')
-            await interaction.response.send_message('Markov algorithm in use is markovify')
+            await interaction.followup.send('Markov algorithm in use is markovify')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)
@@ -211,7 +216,7 @@ async def algorithm_function(interaction: discord.Interaction, algorithm: str):
 @bot.tree.command(name="train", description='train bot with history of listening channels')
 @app_commands.describe(clean = "If True will delete previous training data.")
 async def train(interaction: discord.Interaction, clean: bool):
-    if variabl.working_channel == interaction.channel_id and len(variabl.channels_total) != 0 and  str(interaction.user.id) == OWNER_ID:
+    if variabl.working_channel == interaction.channel_id and len(variabl.channels_total) != 0 and  str(interaction.user.id) in OWNER_ID:
         talk_count = 0
         if variabl.talk == True:
             talking_func.stop()
@@ -274,7 +279,7 @@ async def train(interaction: discord.Interaction, clean: bool):
 # Build out training data from file without running train command
 @bot.tree.command(name="generate", description='If you have your own training data file')
 async def generate(interaction: discord.Interaction):
-    if variabl.working_channel == interaction.channel_id and str(interaction.user.id) == OWNER_ID:
+    if variabl.working_channel == interaction.channel_id and str(interaction.user.id) in OWNER_ID:
 
         await interaction.response.defer(thinking=True)
 
@@ -295,7 +300,6 @@ async def generate(interaction: discord.Interaction):
 # Output sentence based on training data
 @bot.tree.command(name="mark", description='train bot with history of listening channels')
 async def mark(interaction: discord.Interaction):
-    #TODO add it so when the bot is talking you can't call mark
     if variabl.working_channel == interaction.channel_id:
         # DELETE LINE BELOW LATER
         # markov.generate('Masterhacker_bot\masterhacker_parsed_data.txt')
@@ -310,7 +314,14 @@ async def mark(interaction: discord.Interaction):
             print(f'{colored("Mark output senentce:", "green")}\n - {sentence}')
             await interaction.response.send_message(f'{sentence}')
         except:
-            mark(interaction)
+            if variabl.method == 'creator':
+                sentence = markov.markov_string()
+            elif variabl.method == 'markovify':
+                reconstituted_model = markovify.Text.from_json(variabl.model_json)
+                sentence = reconstituted_model.make_short_sentence(300, 80)
+
+            print(f'{colored("Mark output senentce:", "green")}\n - {sentence}')
+            await interaction.response.send_message(f'{sentence}')
     else:
         print(f"{interaction.user} is trying to use me in {interaction.channel}")
         await interaction.response.send_message(f'Please use: <#{str(variabl.working_channel)}>', ephemeral=True)

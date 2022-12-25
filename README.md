@@ -4,10 +4,11 @@
 Made by: Paul Gleason
 
 ## Requirements
-* discordpy - `pip install discord` 
-* markovify - `pip install markovify` 
-* numpy - `pip install numpy`
-* termcolor - `pip install termcolor`
+* To install requirments - `pip install -r requirements.txt`
+* discordpy 
+* markovify
+* numpy 
+* termcolor
 ### Optional
 **Linux**
 * python3 -m venv venv
@@ -53,7 +54,7 @@ Made by: Paul Gleason
     * Config File Example:
     ```
     TOKEN = 'jalqwerjnzxljfasdnotarealtoken'
-    OWNER_ID = 'notrealownderidmewqior'
+    OWNER_ID = ['notrealownderidmewqior', 'anothernotrealowner_idajli']
     ```
 
 2. Configure bot channel:
@@ -113,8 +114,8 @@ Made by: Paul Gleason
     ![False Talk](img/talk%20false.png)
 
 ### Config
-Make a file called `config.py` and add the following.
+Copy the `config_Example.py` and call the file `config.py`.
 ```
 TOKEN = 'jalqwerjnzxljfasdnotarealtoken'
-OWNER_ID = 'notrealownderidmewqior'
+OWNER_ID = ['notrealownderidmewqior', 'anothernotrealowner_idajli']
 ```
