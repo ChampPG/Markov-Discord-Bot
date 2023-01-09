@@ -10,7 +10,8 @@ from discord.ext import commands, tasks
 from config import *
 import os
 import csv
-import markov as marko
+# import markov as marko
+import testing as marko
 import markovify
 from termcolor import colored
 
