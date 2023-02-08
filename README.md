@@ -13,7 +13,7 @@ Made by: Paul Gleason
 A Discord bot that uses Markov Chain to generate sentences from input data that can be taken from discord channels.
 
 ## Requirements
-* To install requirments - `pip install -r requirements.txt` <br />
+* `pip install -r requirements.txt`: To install requirments <br />
   * `discordpy` 
   * `markovify`
   * `numpy`
