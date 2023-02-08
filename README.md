@@ -5,7 +5,7 @@ Made by: Paul Gleason
 2. [Requirements](#requirements)
 3. [Commands](#commands)
 4. [Setup](#setup)
-5. [Usage](#usage)
+5. [Usage](#usage) :-
    a. [Discord Side](#discord-side)
 6. [Config](#config)
 
