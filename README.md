@@ -1,7 +1,16 @@
-# Work in Progress!
-
 # Python Markov Bot
 Made by: Paul Gleason
+
+1. [Project Description](#project-description)
+2. [Requirements](#requirements)
+3. [Commands](#commands)
+4. [Setup](#setup)
+5. [Usage](#usage)
+   a. [Discord Side](#discord-side)
+6. [Config](#config)
+
+## Project Description
+A Discord bot that uses Markov Chain to generate sentences from input data that can be taken from discord channels.
 
 ## Requirements
 * To install requirments - `pip install -r requirements.txt`
