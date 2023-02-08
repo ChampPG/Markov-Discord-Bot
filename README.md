@@ -14,10 +14,10 @@ A Discord bot that uses Markov Chain to generate sentences from input data that 
 
 ## Requirements
 * To install requirments - `pip install -r requirements.txt` <br />
-  `discordpy` 
-  `markovify`
-  `numpy`
-  `termcolor` 
+  * `discordpy` 
+  * `markovify`
+  * `numpy`
+  * `termcolor` 
 ### Optional
 **Linux**
 * python3 -m venv venv
