@@ -6,7 +6,7 @@ Made by: Paul Gleason
 3. [Commands](#commands)
 4. [Setup](#setup)
 5. [Usage](#usage)
->> a. [Discord Side](#discord-side)
+> a. [Discord Side](#discord-side)
 6. [Config](#config)
 
 ## Project Description
